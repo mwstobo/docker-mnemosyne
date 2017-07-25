@@ -10,18 +10,22 @@ ARG matplotlib_tar_filename=matplotlib-${matplotlib_version}.tar.gz
 VOLUME ["/opt/mnemosyne/data"]
 
 RUN apk update \
- && apk add ca-certificates \
-            wget \
+ && apk add --no-cache \
+            ca-certificates \
             python3 \
-            python3-dev \
             py3-qt5 \
-            freetype-dev \
             libpng \
+ && apk add --no-cache \
+            --virtual build \
+            wget \
+            python3-dev \
+            freetype-dev \
             libjpeg-turbo-dev \
             make \
             g++ \
  && update-ca-certificates \
- && pip3 install cheroot \
+ && pip3 install --no-cache-dir \
+                 cheroot \
                  pillow \
                  webob \
  && wget ${mnemosyne_buildhost}/${mnemosyne_tar_filename} \
@@ -36,7 +40,10 @@ RUN apk update \
  && python3 setup.py build \
  && python3 setup.py install \
  && cd /mnemosyne \
- && python3 setup.py install
+ && python3 setup.py install \
+ && rm -r /mnemosyne \
+ && rm -r /matplotlib \
+ && apk del build
 
 CMD ["mnemosyne", \
        "--datadir=/opt/mnenosyne/data", \
