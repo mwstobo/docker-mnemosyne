@@ -36,7 +36,7 @@ RUN apk update \
  && apk del build
 
 CMD ["mnemosyne", \
-       "--datadir=/opt/mnenosyne/data", \
+       "--datadir=/opt/mnemosyne/data", \
        "--no-upgrades", \
        "--sync-server"]
 
