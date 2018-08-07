@@ -1,6 +1,6 @@
 FROM ubuntu:17.10
 
-ARG version=2.6
+ARG version=2.6.1
 ARG buildhost=https://downloads.sourceforge.net/project/mnemosyne-proj/mnemosyne/mnemosyne-${version}
 ARG tar_filename=Mnemosyne-${version}.tar.gz
 
